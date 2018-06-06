@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{24505FCA-C32E-4200-A56F-77CD363F41F6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceXpressApiClient", "src\InvoiceXpressClient\InvoiceXpressApiClient.csproj", "{A1A7FD49-E98D-4320-ABDB-36A8D8D2009F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvoiceXpress.ApiClient", "src\InvoiceXpressClient\InvoiceXpress.ApiClient.csproj", "{A1A7FD49-E98D-4320-ABDB-36A8D8D2009F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{A60DB7EE-DA21-4131-8060-68DA8BD26F67}"
 EndProject

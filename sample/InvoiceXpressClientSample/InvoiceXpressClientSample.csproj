@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\InvoiceXpressClient\InvoiceXpressApiClient.csproj" />
+    <ProjectReference Include="..\..\src\InvoiceXpressClient\InvoiceXpress.ApiClient.csproj" />
   </ItemGroup>
 
 </Project>
