@@ -1,5 +1,4 @@
-﻿using InvoiceXpress.Model;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -25,13 +24,16 @@ namespace InvoiceXpressApiClient.Controllers
 
         protected async Task<T> GetAsync<T>(string url, bool throwOnError = false)
         {
-            var response = await _httpClient.GetAsync(AddApiKeyToUrl(url));
+            url = AddApiKeyToUrl(url);
+            var response = await _httpClient.GetAsync(url);
 
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogWarning("The GET request to '{url}' was not successful ({statusCode})", url, response.StatusCode);
                 if (throwOnError)
+                {
                     throw new Exception();
+                }
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -51,7 +53,9 @@ namespace InvoiceXpressApiClient.Controllers
             {
                 _logger.LogWarning("The POST request to '{url}' was not successful ({statusCode})", url, response.StatusCode);
                 if (throwOnError)
+                {
                     throw new Exception();
+                }
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -173,7 +177,9 @@ namespace InvoiceXpressApiClient.Controllers
 
         private string AddApiKeyToUrl(string url)
         {
-            return $"{url}?api_key={_apiKey}";
+            return url.Contains("?") ? 
+                $"{url}&api_key={_apiKey}" : 
+                $"{url}?api_key={_apiKey}";
         }
     }
 }

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\InvoiceXpressClient.AspNetCore\InvoiceXpress.Client.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\src\InvoiceXpressClient\InvoiceXpress.ApiClient.csproj" />
+  </ItemGroup>
+
+</Project>

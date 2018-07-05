@@ -1,21 +1,25 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using InvoiceXpress;
+using InvoiceXpress.ApiClient;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace InvoiceXpressClientSample
 {
-    class Program
+    internal class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
-            string apiKey = "19ef5d76ceb5e87b68a47923079f5752cacacf74";
-            HttpClient httpClient = new HttpClient
-            {
-                BaseAddress = new Uri("https://testingapilda.app.invoicexpress.com/")
-            };
+            var configuration = new ConfigurationBuilder()
+                .AddEnvironmentVariables()
+                .Build();
+
+            var apiKey = configuration["InvoiceXpressApiKey"];
+            var apiUrl = configuration["InvoiceXpressApiUrl"];
+
 
             var serviceProvider = new ServiceCollection()
                 .AddLogging()
@@ -28,33 +32,24 @@ namespace InvoiceXpressClientSample
 
 
             var logger = serviceProvider.GetService<ILoggerFactory>()
-                .CreateLogger<InvoiceXpress.InvoiceClient>();
+                .CreateLogger<InvoiceXpressClient>();
 
             Console.WriteLine("== InvoiceXpress Api Client ==");
 
-            var invoiceClient = new InvoiceXpress.InvoiceClient(httpClient, apiKey, logger);
-
-            //var invoice = await invoiceClient.Invoices.CreateInvoice(new InvoiceXpress.Model.Invoice
-            //{
-            //    Date = DateTimeOffset.Now.DateTime,
-            //    DueDate = DateTimeOffset.Now.AddDays(2).DateTime,
-            //    Client = new InvoiceXpress.Model.Client
-            //    {
-            //        Name = "John",
-            //        Code = "100"
-            //    },
-            //    Items = new List<InvoiceXpress.Model.Item>
-            //    {
-            //        new InvoiceXpress.Model.Item { Name = "Product B", Description = "Cleaning product", UnitPrice = "10", Quantity = 2 }
-            //    }
-            //});
-            //Console.WriteLine($"Created the invoice #{invoice.Id}: Created @ {invoice.Date}, with a total of {invoice.Total}{invoice.Currency}");
+            // Creating the client
+            var invoiceClient = InvoiceXpressClientFactory.Create(apiUrl, apiKey, logger);
 
 
-            var response = await invoiceClient.Invoices.GetAll("", "");
+            var response = await invoiceClient.Invoices.GetAll();
+            if (response.Pagination != null)
+            {
+                Console.WriteLine($"Page {response.Pagination.CurrentPage}/{response.Pagination.TotalPages} | Total: {response.Pagination.TotalEntries}");
+                Console.WriteLine("--------------------------------------------------------------------------------------------");
+            }
+
             foreach (var item in response.Invoices)
             {
-                Console.WriteLine($"#{item.Id}: Created @ {item.Date}, with a total of {item.Total}{item.Currency} - Status: {item.Status}");
+                Console.WriteLine($" > #{item.Id} [{item.Status}]: Invoice for '{item.Client?.Name}' created @ {item.Date}, with a total of {item.Total}{item.Currency}");
             }
 
             Console.WriteLine();

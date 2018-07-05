@@ -1,0 +1,70 @@
+﻿@model InvoiceXpressApiClient.Controllers.InvoiceCollection
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="alert alert-info">Data used from this InvoiceXpress instance: <strong>@ViewData["ApiUrl"]</strong></div>
+<br />
+
+<h1>List All Invoices</h1>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-right">
+            Page <strong>@Model.Pagination.CurrentPage</strong> of <strong>@Model.Pagination.TotalPages</strong>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @if (Model.Invoices == null || Model.Invoices.Count == 0)
+        {
+            <div class="alert alert-warning">There are no Invoices.</div>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Client</th>
+
+                        <th>Sum</th>
+                        <th>Before Taxes</th>
+                        <th>Taxes</th>
+                        <th>Total</th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var invoice in Model.Invoices)
+                    {
+                        <tr>
+                            <td>@invoice.Id</td>
+                            <td>@invoice.Date.ToString("yyyy/MM/dd")</td>
+                            <td><div class="label label-primary">@invoice.Status</div></td>
+                            <td>@invoice.Client?.Name</td>
+
+                            <td>@invoice.Sum @invoice.Currency</td>
+                            <td>@invoice.BeforeTaxes @invoice.Currency</td>
+                            <td>@invoice.Taxes @invoice.Currency</td>
+                            <td><strong>@invoice.Total @invoice.Currency</strong></td>
+
+                            <td><a href="@invoice.Permalink"><span class="label label-success">Download</span></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-right">
+            <strong>Total Invoices: @Model.Pagination.TotalEntries</strong>
+        </div>
+    </div>
+</div>

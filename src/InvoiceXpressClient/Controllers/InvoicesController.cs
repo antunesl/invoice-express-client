@@ -1,4 +1,5 @@
-﻿using InvoiceXpress.Model;
+﻿using InvoiceXpress.ApiClient.Model;
+using InvoiceXpress.Model;
 using InvoiceXpressApiClient.Model;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -16,11 +17,14 @@ namespace InvoiceXpressApiClient.Controllers
         }
 
 
-        public async Task<InvoiceCollection> GetAll(string page, string pageSize)
+        public async Task<InvoiceCollection> GetAll(long? page = null, long? pageSize = null)
         {
-            return await GetAsync<InvoiceCollection>("/invoices.json");
-        }
+            var pageParameter = page ?? 1;
+            var pageSizeParameter = pageSize ?? 10;
 
+            var url = $"/invoices.json?page={pageParameter}&per_page={pageSizeParameter}";
+            return await GetAsync<InvoiceCollection>(url);
+        }
 
 
         public async Task<Invoice> CreateInvoice(Invoice newInvoice)
@@ -52,6 +56,18 @@ namespace InvoiceXpressApiClient.Controllers
         {
             return await CreateInvoiceInternal("/debit_notes.json", newInvoice);
         }
+
+
+
+        public async Task<GeneratePdfResponse> GeneratePDF(long id, bool secondCopy = false)
+        {
+            //TODO: 
+            // The first response given will have a HTTP 202 code, meaning the generation was started.
+            // You need to keep requesting until you get a response with HTTP status code 200, and the url to download the file in the message body.
+            return await GetAsync<GeneratePdfResponse>($"pdf/{id}.json?second_copy={secondCopy.ToString().ToLower()}");
+        }
+
+
 
 
 
