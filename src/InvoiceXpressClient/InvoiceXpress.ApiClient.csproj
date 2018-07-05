@@ -2,7 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.1.2</Version>
+    <Version>0.1.3</Version>
+    <Authors>antunesl</Authors>
+    <Company />
+    <Product />
+    <RepositoryUrl>https://github.com/antunesl/invoicexpress-client</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/antunesl/invoicexpress-client</PackageProjectUrl>
+    <PackageTags>REST client RestClient json netcore core netstandard</PackageTags>
+    <Description>API Client for InvoiceXpress online invoicing software.</Description>
   </PropertyGroup>
 
   <ItemGroup>
