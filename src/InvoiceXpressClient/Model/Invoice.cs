@@ -55,16 +55,16 @@ namespace InvoiceXpress.Model
         public double? Sum { get; set; }
 
         [JsonProperty("discount")]
-        public double? Discount { get; set; }
+        public decimal? Discount { get; set; }
 
         [JsonProperty("before_taxes")]
-        public double? BeforeTaxes { get; set; }
+        public decimal? BeforeTaxes { get; set; }
 
         [JsonProperty("taxes")]
-        public double? Taxes { get; set; }
+        public decimal? Taxes { get; set; }
 
         [JsonProperty("total")]
-        public double? Total { get; set; }
+        public decimal? Total { get; set; }
 
         [JsonProperty("currency")]
         public string Currency { get; set; }

@@ -11,31 +11,31 @@ namespace InvoiceXpress.Model
         public string Description { get; set; }
 
         [JsonProperty("unit_price")]
-        public string UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
 
         [JsonProperty("unit")]
         public string Unit { get; set; }
 
         [JsonProperty("quantity")]
-        public double? Quantity { get; set; }
+        public decimal? Quantity { get; set; }
 
         [JsonProperty("tax")]
         public Tax Tax { get; set; }
 
         [JsonProperty("discount")]
-        public long? Discount { get; set; }
+        public decimal? Discount { get; set; }
 
         [JsonProperty("subtotal")]
-        public double? Subtotal { get; set; }
+        public decimal? Subtotal { get; set; }
 
         [JsonProperty("tax_amount")]
-        public double? TaxAmount { get; set; }
+        public decimal? TaxAmount { get; set; }
 
         [JsonProperty("discount_amount")]
         public long? DiscountAmount { get; set; }
 
         [JsonProperty("total")]
-        public long? Total { get; set; }
+        public decimal? Total { get; set; }
 
 
 
