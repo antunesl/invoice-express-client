@@ -11,7 +11,7 @@ namespace InvoiceXpress.Model
         public string Description { get; set; }
 
         [JsonProperty("unit_price")]
-        public decimal UnitPrice { get; set; }
+        public decimal? UnitPrice { get; set; }
 
         [JsonProperty("unit")]
         public string Unit { get; set; }

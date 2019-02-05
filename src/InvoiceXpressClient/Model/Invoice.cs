@@ -52,7 +52,7 @@ namespace InvoiceXpress.Model
         public string SaftHash { get; set; }
 
         [JsonProperty("sum")]
-        public double? Sum { get; set; }
+        public decimal? Sum { get; set; }
 
         [JsonProperty("discount")]
         public decimal? Discount { get; set; }
